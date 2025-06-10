@@ -12,4 +12,21 @@ describe("Componente search-bar", () => {
 
         expect(searchInput).toBeInTheDocument();
     })
+
+    it("chama a função onSearch quando o botão de busca é clicado"), () => {
+        const mockOnSearch = vi.fn();
+
+        render(<SearchBar onSearch={mockOnSearch} />);
+
+        const searchInput = screen.getByPlaceholderText("Search for movies by title or genre...");
+
+        const searchButton = screen.getByRole("button");
+
+        fireEvent.change(searchInput, {target: {value : "Inception"}});
+        fireEvent.click(searchButton);
+
+        expect(searchInput).toBeInTheDocument();
+
+        expect(mockOnSearch).toHaveBeenCalledWith("Inception");
+    }
 })
